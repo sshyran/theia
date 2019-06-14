@@ -10,6 +10,7 @@ Breaking changes:
 - [debug] align commands with VS Code [#5102](https://github.com/theia-ide/theia/issues/5102)
     - `debug.restart` renamed to `workbench.action.debug.restart`
 - [preferences] renamed overridenPreferenceName to overriddenPreferenceName
+- [plugin] files from 'plugin-ext/src/api' moved to 'plugin-ext/src/common', renamed 'model.ts' to 'plugin-api-rpc-model.ts', 'plugin-api.ts' to 'plugin-api-rpc.ts'
 
 ## v0.7.0
 

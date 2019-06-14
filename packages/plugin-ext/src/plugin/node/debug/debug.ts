@@ -15,14 +15,14 @@
  ********************************************************************************/
 import { Emitter } from '@theia/core/lib/common/event';
 import { Disposable } from '../../types-impl';
-import { Breakpoint } from '../../../api/model';
-import { RPCProtocol } from '../../../api/rpc-protocol';
+import { Breakpoint } from '../../../common/plugin-api-rpc-model';
+import { RPCProtocol } from '../../../common/rpc-protocol';
 import {
     PLUGIN_RPC_CONTEXT as Ext,
     DebugMain,
     DebugExt,
     TerminalOptionsExt
-} from '../../../api/plugin-api';
+} from '../../../common/plugin-api-rpc';
 import * as theia from '@theia/plugin';
 import uuid = require('uuid');
 import { ConnectionExtImpl } from '../../connection-ext';
