@@ -160,15 +160,16 @@ export class QuickOpenTask implements QuickOpenModel, QuickOpenHandler {
         this.items = [];
         this.actionProvider = undefined;
 
+        const configuredTasks = this.taskService.getConfiguredTasks();
         const providedTasks = await this.taskService.getProvidedTasks();
-        if (!providedTasks.length) {
+        if (!configuredTasks && !providedTasks.length) {
             this.items.push(new QuickOpenItem({
                 label: 'No tasks found',
                 run: (_mode: QuickOpenMode): boolean => false
             }));
         }
 
-        providedTasks.forEach(task => {
+        [...configuredTasks, ...providedTasks].forEach(task => {
             this.items.push(new TaskConfigureQuickOpenItem(task, this.taskService, this.labelProvider));
         });
 
@@ -311,14 +312,21 @@ export class TaskConfigureQuickOpenItem extends QuickOpenGroupItem {
     }
 
     getLabel(): string {
-        return `${this.task._source}: ${this.task.label}`;
+        if (ContributedTaskConfiguration.is(this.task)) {
+            return `${this.task._source}: ${this.task.label}`;
+        }
+        return `${this.task.type}: ${this.task.label}`;
     }
 
     getDescription(): string {
-        if (this.task._scope) {
-            return this.labelProvider.getLongName(new URI(this.task._scope));
+        if (ContributedTaskConfiguration.is(this.task)) {
+            if (this.task._scope) {
+                return this.labelProvider.getLongName(new URI(this.task._scope));
+            }
+            return this.task._source;
+        } else {
+            return new URI(this.task._source).displayName;
         }
-        return this.task._source;
     }
 
     run(mode: QuickOpenMode): boolean {
