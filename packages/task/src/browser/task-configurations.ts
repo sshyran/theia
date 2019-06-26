@@ -236,7 +236,7 @@ export class TaskConfigurations implements Disposable {
                 } else {
                     return this.filterDuplicates(tasks['tasks']).map(task => {
                         const { _source, _scope, ...configuration } = task;
-                        return { ...configuration, _source: this.getSourceFolderFromConfigUri(uri) };;
+                        return { ...configuration, _source: this.getSourceFolderFromConfigUri(uri) };
                     });
                 }
             } catch (err) {
