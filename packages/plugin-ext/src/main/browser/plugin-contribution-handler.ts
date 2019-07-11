@@ -143,6 +143,10 @@ export class PluginContributionHandler {
             }
         }
 
+        this.registerCommands(contributions);
+        this.menusContributionHandler.handle(contributions);
+        this.keybindingsContributionHandler.handle(contributions);
+
         if (contributions.viewsContainers) {
             for (const location in contributions.viewsContainers) {
                 if (contributions.viewsContainers!.hasOwnProperty(location)) {
@@ -161,9 +165,6 @@ export class PluginContributionHandler {
             }
         }
 
-        this.registerCommands(contributions);
-        this.menusContributionHandler.handle(contributions);
-        this.keybindingsContributionHandler.handle(contributions);
         if (contributions.snippets) {
             for (const snippet of contributions.snippets) {
                 this.snippetSuggestProvider.fromURI(snippet.uri, {
